@@ -7,6 +7,7 @@ import * as Keychain from 'react-native-keychain';
 import {NavigationStackParamList} from '../../navigation/navigation';
 import {FormInput} from '../../components/FormInput';
 import {styles} from './styles';
+import {Button} from '../../components/Button';
 
 /**
  * Types
@@ -84,6 +85,14 @@ const Login: FC<LoginScreenProps> = ({navigation: {navigate}}) => {
             }}
           />
         </View>
+
+        <Button
+          accessibilityLabel="sign in"
+          title="sign in"
+          disabled={!isDirty || !isValid}
+          loading={loading}
+          onPress={handleSubmit(onLoginPressed)}
+        />
       </Pressable>
     </>
   );
