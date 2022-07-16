@@ -1,7 +1,19 @@
 import {createStackNavigator} from '@react-navigation/stack';
-import {LoginScreen} from '../screens';
+import {Login} from '../screens';
+
+/**
+ * Types
+ */
+
+export type NavigationStackParamList = {
+  Login: undefined;
+};
 
 const Stack = createStackNavigator();
+
+/**
+ * Navigator
+ */
 
 export const Navigation = () => {
   return (
@@ -11,8 +23,9 @@ export const Navigation = () => {
         cardStyle: {
           backgroundColor: 'white',
         },
-      }}>
-      <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      }}
+      initialRouteName="Login">
+      <Stack.Screen name="Login" component={Login} />
     </Stack.Navigator>
   );
 };
