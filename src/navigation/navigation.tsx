@@ -1,5 +1,5 @@
 import {createStackNavigator} from '@react-navigation/stack';
-import {Login} from '../screens';
+import {Login, QRScan} from '../screens';
 
 /**
  * Types
@@ -7,6 +7,7 @@ import {Login} from '../screens';
 
 export type NavigationStackParamList = {
   Login: undefined;
+  QRScan: undefined;
 };
 
 const Stack = createStackNavigator();
@@ -24,8 +25,9 @@ export const Navigation = () => {
           backgroundColor: 'white',
         },
       }}
-      initialRouteName="Login">
+      initialRouteName="QRScan">
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="QRScan" component={QRScan} />
     </Stack.Navigator>
   );
 };
