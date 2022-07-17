@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from 'react';
+import {FC, useLayoutEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {
@@ -22,21 +22,26 @@ type QRScanScreenProps = StackScreenProps<NavigationStackParamList, 'QRScan'>;
  */
 
 const QRScan: FC<QRScanScreenProps> = ({navigation: {navigate}}) => {
-  const [hasPermission, setHasPermission] = useState(false);
   const devices = useCameraDevices();
   const device = devices.back;
 
   const onBarCodeRead = (detectedBarcodes: Barcode[]): void => {
-    const {
-      content: {data},
-    } = detectedBarcodes[0];
+    const {data} = detectedBarcodes[0]?.content || '';
 
-    navigate('Quote', {text: data as string});
+    if (data) {
+      navigate('Quote', {text: data as string});
+    }
+    return;
   };
 
-  const checkCameraPermission = async (): Promise<void> => {
-    const status = await Camera.requestCameraPermission();
-    setHasPermission(status === 'authorized');
+  const isCameraEnabled = async () => {
+    const status = await Camera.getCameraPermissionStatus();
+
+    return status === 'authorized';
+  };
+
+  const askCameraPermission = async (): Promise<void> => {
+    await Camera.requestCameraPermission();
   };
 
   const frameProcessor = useFrameProcessor(frame => {
@@ -47,11 +52,13 @@ const QRScan: FC<QRScanScreenProps> = ({navigation: {navigate}}) => {
     runOnJS(onBarCodeRead)(detectedBarcodes);
   }, []);
 
-  useEffect(() => {
-    checkCameraPermission();
+  useLayoutEffect(() => {
+    if (!isCameraEnabled()) {
+      askCameraPermission();
+    }
   }, []);
 
-  return device != null && hasPermission ? (
+  return device != null ? (
     <Camera
       style={StyleSheet.absoluteFill}
       device={device}

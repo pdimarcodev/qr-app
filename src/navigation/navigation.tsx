@@ -1,4 +1,5 @@
 import {createStackNavigator} from '@react-navigation/stack';
+import {Header} from '../components/Header';
 import {Login, QRScan, Quote} from '../screens';
 
 /**
@@ -23,15 +24,25 @@ export const Navigation = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: false,
         cardStyle: {
           backgroundColor: 'white',
         },
       }}
-      initialRouteName="QRScan">
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="QRScan" component={QRScan} />
-      <Stack.Screen name="Quote" component={Quote} />
+      initialRouteName="Login">
+      <Stack.Group
+        screenOptions={{
+          headerMode: 'screen',
+          header: () => <Header />,
+        }}>
+        <Stack.Screen name="Login" component={Login} />
+      </Stack.Group>
+      <Stack.Group
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Screen name="QRScan" component={QRScan} />
+        <Stack.Screen name="Quote" component={Quote} />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };

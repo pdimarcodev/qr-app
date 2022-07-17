@@ -10,26 +10,4 @@ export const styles = StyleSheet.create({
   formWrapper: {
     justifyContent: 'center',
   },
-  textWrapper: {
-    flex: 1,
-    justifyContent: 'space-between',
-  },
-  forgotPassword: {
-    marginTop: 10,
-    fontSize: 12,
-    color: 'black',
-    textAlign: 'center',
-  },
-  registerWrapper: {
-    textAlign: 'center',
-    marginBottom: 85,
-  },
-  notRegistered: {
-    fontSize: 16,
-    color: 'black',
-  },
-  register: {
-    fontSize: 16,
-    color: 'black',
-  },
 });

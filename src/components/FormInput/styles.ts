@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     marginBottom: -8,
     marginLeft: -4,
     paddingHorizontal: 5,
-    fontSize: 15,
+    fontSize: 20,
     color: 'black',
   },
   editableInput: {
@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
   errorMessage: {
-    fontSize: 10,
+    fontSize: 14,
     color: 'red',
     alignSelf: 'stretch',
   },

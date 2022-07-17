@@ -74,7 +74,7 @@ export function FormInput<ContentType>({
             <ShowIf condition={isDirty}>
               <View style={styles.icon}>
                 {!error ? (
-                  <Icon name="Check" size={20} />
+                  <Icon name="Ok" size={20} />
                 ) : (
                   <Icon name="Warning" size={20} />
                 )}

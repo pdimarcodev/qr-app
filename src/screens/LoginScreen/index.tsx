@@ -1,5 +1,5 @@
 import {FC, useState} from 'react';
-import {Alert, Keyboard, Pressable, View} from 'react-native';
+import {Alert, Keyboard, Pressable, Text, View} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {useForm} from 'react-hook-form';
 import * as Keychain from 'react-native-keychain';
@@ -49,13 +49,21 @@ const Login: FC<LoginScreenProps> = ({navigation: {navigate}}) => {
     setLoading(true);
 
     try {
+      const credentials = await Keychain.getGenericPassword();
+      if (credentials) {
+        const {username: storedUsername, password: storedPassword} =
+          credentials;
+        if (username !== storedUsername || password !== storedPassword) {
+          setLoading(false);
+          return Alert.alert('Error', 'Username or password incorrect');
+        }
+        return navigate('QRScan');
+      }
+
       await Keychain.setGenericPassword(username, password);
-
+      navigate('QRScan');
+    } catch (_) {
       setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      console.log({error});
-
       Alert.alert('Error', 'Something happened! Try again!');
     }
   };
@@ -70,7 +78,12 @@ const Login: FC<LoginScreenProps> = ({navigation: {navigate}}) => {
             control={control}
             rules={{
               required: true,
-              pattern: ALPHANUMERIC_REGEX,
+              minLength: 3,
+              maxLength: 16,
+              pattern: {
+                value: ALPHANUMERIC_REGEX,
+                message: 'Invalid username',
+              },
             }}
           />
           <FormInput
@@ -81,7 +94,10 @@ const Login: FC<LoginScreenProps> = ({navigation: {navigate}}) => {
             control={control}
             rules={{
               required: true,
-              pattern: PASSWORD_REGEX,
+              pattern: {
+                value: PASSWORD_REGEX,
+                message: 'Invalid password',
+              },
             }}
           />
         </View>
