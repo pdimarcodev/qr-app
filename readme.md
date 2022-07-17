@@ -18,7 +18,7 @@ npx react-native run-android
 
 <br/>
 
-<img src="./demo/QRtest.png" width="300"/>
+<img src="https://github.com/pdimarcodev/qr-app/blob/master/demo/QRtest.png" width="300"/>
 
 <br/>
 
@@ -35,4 +35,5 @@ vision-camera-code-scanner
 
 <br/>
 
-<img src="./demo/QR-demo.gif" width="300"/>
+![](https://github.com/pdimarcodev/qr-app/blob/master/demo/qr-demo.gif)
+
