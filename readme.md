@@ -35,5 +35,4 @@ vision-camera-code-scanner
 
 <br/>
 
-![](https://github.com/pdimarcodev/qr-app/blob/master/demo/qr-demo.gif)
-
+<img src="https://github.com/pdimarcodev/qr-app/blob/master/demo/qr-demo.gif" width="300"/>
